@@ -1,13 +1,19 @@
 from datetime import datetime
 
 def get_days_from_today(date):
-    date_object = datetime.strptime(date, '%Y-%m-%d')
+    try:
+        date_object = datetime.strptime(date, '%Y-%m-%d')
+        current_date = datetime.now()
+        delta = current_date - date_object
+        return delta.days
+    except ValueError:
+        print("Ошибка: Некорректный формат даты. Используйте формат YYYY-MM-DD.")
+        return None
 
-    current_date = datetime.now()
+result = get_days_from_today('2024-01-01')
 
-    delta = current_date - date_object
-    return delta.days
-print(get_days_from_today('2024-01-01'))
+if result is not None:
+    print(result)
 
 
 
@@ -15,12 +21,13 @@ print(get_days_from_today('2024-01-01'))
 
 import random
 def get_numbers_ticket(min, max, quantity):
-    numbers = random.sample(range(min, max + 1), quantity)
     if min < 0 or max > 1000 or not (min < quantity < max):
         return []
     else:
-        return sorted(numbers)
+        numbers = random.sample(range(min, max + 1), quantity)
+    return sorted(numbers)
 print(get_numbers_ticket(1, 49, 6))
+
 
 
 
